@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
   useEffect(() => {
     const fetchStarCount = async () => {
       try {
-        const response = await fetch('https://api.github.com/repos/0xmetaschool/mock-interviewer-gpt');
+        const response = await fetch('https://api.github.com/repos/0xmetaschool/customer-support-gpt');
         const data: GitHubData = await response.json();
         setStarCount(data.stargazers_count);
       } catch (error) {

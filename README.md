@@ -94,7 +94,7 @@ Open your browser and navigate to http://localhost:3000
 
 We love contributions! Here's how you can help make the project even better:
 
-- Fork the project (gh repo fork https://github.com/0xmetaschool/customer-support-gpt.git)
+- Fork the project (gh repo fork https://github.com/0xmetaschool/CustomerSupportGPT.git)
 - Create your feature branch (git checkout -b feature/AmazingFeature)
 - Commit your changes (git commit -m 'Add some AmazingFeature')
 - Push to the branch (git push origin feature/AmazingFeature)

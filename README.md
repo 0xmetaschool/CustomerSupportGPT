@@ -1,7 +1,6 @@
 # CustomerSupportGPT
 CustomerSupportGPT is a developer template for building AI-powered chat support systems. It helps businesses provide instant, accurate, and personalized support to their customers 24/7. Whether it's answering FAQs, troubleshooting issues, or guiding customers through complex processes, CustomerSupportGPT is here to assist.
 
-Built with Next.js and styled with Tailwind CSS, this application offers a seamless user experience with real-time chat support.
 
 ## Live Demo
 

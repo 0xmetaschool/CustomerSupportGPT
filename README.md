@@ -1,10 +1,11 @@
 # CustomerSupportGPT
 CustomerSupportGPT is a developer template for building AI-powered chat support systems. It helps businesses provide instant, accurate, and personalized support to their customers 24/7. Whether it's answering FAQs, troubleshooting issues, or guiding customers through complex processes, CustomerSupportGPT is here to assist.
 
+Built with Next.js and styled with Tailwind CSS, this application offers a seamless user experience with real-time chat support.
 
 ## Live Demo
 
-[https://ai-customer-service-assistant.vercel.app/](https://ai-customer-service-assistant.vercel.app/)
+[https://customer-support-gpt-metaschool.vercel.app/](https://customer-support-gpt-metaschool.vercel.app/)
 
 ## Features
 
@@ -33,13 +34,13 @@ CustomerSupportGPT is a developer template for building AI-powered chat support 
 1. Clone the repository:
 
 ```
-git clone https://github.com/0xmetaschool/customer-support-gpt
+git clone https://github.com/0xmetaschool/CustomerSupportGPT.git
 ```
 
 2. Navigate to the project directory:
 
 ```
-cd customer-support-gpt
+cd CustomerSupportGPT
 ```
 
 3. Install dependencies:
@@ -73,20 +74,21 @@ Open your browser and navigate to http://localhost:3000
 ## Screenshots
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="screenshots/home.png" alt="Home Page" style="width: 49%; border: 2px solid black;" />
-  <img src="screenshots/dashboard.png" alt="Dashboard Page" style="width: 49%; border: 2px solid black;" />
+  <img src="https://github.com/0xmetaschool/CustomerSupportGPT/blob/main/screenshots/customer-support-gpt-template-dashboard.png?raw=true" alt="CustomerSupport GPT Template Dashboard screenshot" style="width: 49%; border: 2px solid black;" />
+  <img src="https://github.com/0xmetaschool/CustomerSupportGPT/blob/main/screenshots/customer-support-gpt-template-demo.png?raw=true" alt="CustomerSupport GPT Template Demo screenshot" style="width: 49%; border: 2px solid black;"/>
+
 </div>
 
 <div style="display: flex; justify-content: space-between;">
-  <img src="screenshots/manage_bot.png" alt="Manage Bots" style="width: 49%; border: 2px solid black;" />
-  <img src="screenshots/demo.png" alt="Demo" style="width: 49%; border: 2px solid black;" />
+  <img src="https://github.com/0xmetaschool/CustomerSupportGPT/blob/main/screenshots/customer-support-gpt-template-home.png?raw=true" alt="CustomerSupport GPT Template Homepage screenshot" style="width: 49%; border: 2px solid black;"/>
+  <img src="https://github.com/0xmetaschool/CustomerSupportGPT/blob/main/screenshots/customer-support-gpt-template-manage-bot.png?raw=true?raw=true" alt="CustomerSupport GPT Template Manage Bot screenshot" style="width: 49%; border: 2px solid black;" />
 </div>
 
 ## How to use the application
 
-- Create a new account or sign in to your existing one.
-- Create a new bot and upload documents to create a knowledge base for the AI to reference.
-- Add the embed code to your website to enable the chat support widget.
+1. Create a new account or sign in to your existing one.
+2. Create a new bot and upload documents to create a knowledge base for the AI to reference.
+3. Add the embed code to your website to enable the chat support widget.
 
 ## Contributing
 
@@ -101,3 +103,7 @@ We love contributions! Here's how you can help make the project even better:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+## Contact
+Please open an issue in the GitHub repository for any queries or support.

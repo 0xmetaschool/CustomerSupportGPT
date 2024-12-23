@@ -17,11 +17,22 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   try {
+    const body = await request.json();
+    
     const response = await handleUpload({
       request,
       token: process.env.BLOB_READ_WRITE_TOKEN,
+      body,
+      onBeforeGenerateToken: async () => {
+        // Optionally add custom logic before token generation
+        return {};
+      },
+      onUploadCompleted: async () => {
+        // Optionally add logic to run after upload completes
+      },
     });
-    return new NextResponse(response.body, response);
+    
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Blob upload error:', error);
     return NextResponse.json(

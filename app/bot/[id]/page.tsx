@@ -108,7 +108,6 @@ export default function ManageBot({ params }: { params: { id: string } }) {
       // Upload to Vercel Blob
       const blob = await put(file.name, file, {
         access: 'public',
-        handleUploadUrl: '/api/upload-blob',
         token: token,
       });
 

@@ -23,11 +23,10 @@ export async function POST(request: Request, { params }: { params: { id: string 
       return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
     }
 
-    const formData = await request.formData();
-    const file = formData.get('file') as File | null;
+    const { fileName, fileUrl } = await request.json();
 
-    if (!file) {
-      return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
+    if (!fileName || !fileUrl) {
+      return NextResponse.json({ error: 'File name and URL are required' }, { status: 400 });
     }
 
     const client = await clientPromise;
@@ -47,15 +46,21 @@ export async function POST(request: Request, { params }: { params: { id: string 
       return NextResponse.json({ error: 'Assistant not created for this bot' }, { status: 400 });
     }
 
+    // Download the file from Vercel Blob
+    const response = await fetch(fileUrl);
+    if (!response.ok) {
+      return NextResponse.json({ error: 'Failed to download file from Blob storage' }, { status: 500 });
+    }
+
     // Save the file temporarily
     const tempDir = os.tmpdir();
-    const tempFilePath = path.join(tempDir, file.name);
-    const fileBuffer = Buffer.from(await file.arrayBuffer());
+    const tempFilePath = path.join(tempDir, fileName);
+    const fileBuffer = Buffer.from(await response.arrayBuffer());
     fs.writeFileSync(tempFilePath, fileBuffer);
 
     // Create a vector store
     const vectorStore = await openai.beta.vectorStores.create({
-      name: `${bot.name} - ${file.name}`,
+      name: `${bot.name} - ${fileName}`,
     });
 
     // Upload the file to the vector store
@@ -74,7 +79,8 @@ export async function POST(request: Request, { params }: { params: { id: string 
 
     const newVersion = {
       version: (bot.currentVersion || 0) + 1,
-      fileName: file.name,
+      fileName: fileName,
+      fileUrl: fileUrl,
       vectorStoreId: vectorStore.id,
       uploadedAt: new Date(),
     };
@@ -100,8 +106,12 @@ export async function POST(request: Request, { params }: { params: { id: string 
       version: newVersion.version,
       vectorStoreId: vectorStore.id,
     });
+
   } catch (error) {
-    console.error('Error uploading and processing document:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    console.error('Error in upload route:', error);
+    return NextResponse.json(
+      { error: 'An error occurred while processing the document' },
+      { status: 500 }
+    );
   }
 }

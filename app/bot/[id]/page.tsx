@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Bot, Upload, FileText, ArrowLeft, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { put } from '@vercel/blob';
 
 // Interface for the Version object.
 interface Version {
@@ -94,14 +95,38 @@ export default function ManageBot({ params }: { params: { id: string } }) {
     if (!file || !user) return;
 
     setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
+    setError(null);
 
     try {
+      // Get the blob token
+      const tokenResponse = await fetch('/api/blob-token');
+      if (!tokenResponse.ok) {
+        throw new Error('Failed to get upload token');
+      }
+      const { token } = await tokenResponse.json();
+
+      // Upload to Vercel Blob
+      const blob = await put(file.name, file, {
+        access: 'public',
+        handleUploadUrl: '/api/upload-blob',
+        token: token,
+      });
+
+      if (!blob?.url) {
+        throw new Error('Failed to get upload URL from Vercel Blob');
+      }
+
+      // Send the URL to your API
       const response = await fetch(`/api/bots/${params.id}/upload`, {
         method: 'POST',
         credentials: 'include',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileUrl: blob.url,
+        }),
       });
 
       if (response.ok) {
@@ -109,10 +134,12 @@ export default function ManageBot({ params }: { params: { id: string } }) {
         fetchBot();
       } else {
         const errorData = await response.json();
+        console.error('Upload API error:', errorData);
         setError(errorData.error || 'Failed to upload document');
       }
     } catch (error) {
-      setError(`An error occurred while uploading the document: ${error}`);
+      console.error('Upload error:', error);
+      setError(`An error occurred while uploading the document: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setUploading(false);
     }
